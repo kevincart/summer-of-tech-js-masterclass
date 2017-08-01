@@ -35,9 +35,3 @@ class JoinGame extends React.Component {
   }
 }
 window.JoinGame = JoinGame;
-onSubmit={e => this.joinGame(e)}
-onChange={e => this.handleNameChange(e)}
-onChange={e => this.handleSymbolChange(e)}
-
-value={this.state.name}
-value={this.state.symbol}
