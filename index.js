@@ -13,9 +13,20 @@ const server = app.listen(5000, () => {
 
 app.post('/join-game', (req, res) => {
   console.log(req.body);
+  let token = gameState.addPlayer({ name, symbol });
+  res.status(200).json({ token });
   let { name, symbol } = req.body;
   gameState.addPlayer({ name, symbol });
   res.status(200).end();
+  let { name, symbol } = req.body;
+
+    try {
+        gameState.addPlayer({ name, symbol });
+        res.status(200).end();
+    } catch (e) {
+        let { message } = e;
+        res.status(400).json({ message });
+    }
 });
 
 app.get('/game-state', (req, res) => {
@@ -23,9 +34,13 @@ app.get('/game-state', (req, res) => {
 });
 
 app.post('/take-turn', (req, res) => {
-  console.log(req.body);
   let { move } = req.body;
-  gameState.addMove({ move });
-  res.status(200).end();
+  try {
+      gameState.addMove({ move });
+      res.status(200).end();
+  } catch (e) {
+      let { message } = e;
+      res.status(400).json({ message });
+  }
 });
 app.use(bodyParser.json());
