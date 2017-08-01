@@ -21,6 +21,9 @@ class TicTacToe extends React.Component {
         return <JoinGame onJoinGame={token => this.setToken(token)}/>
       }
     }
+    setToken (token) {
+    this.state.token = token;
+    }
     loadGameState () {
     fetch('/game-state')
     .then(response => response.json())
