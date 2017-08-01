@@ -1,4 +1,6 @@
 import crypto from 'crypto';
+import WinChecker from './win-checker';
+let winChecker = new WinChecker();
 const TOKENS = [];
 
 export default class GameState {
@@ -34,6 +36,10 @@ export default class GameState {
     }
 
     addMove (turn) {
+        let { token } = turn;
+        if (!token || TOKENS[this.players.indexOf(this.whoseTurn)] !== token) {
+            throw new Error('Invalid turn: it is not your turn');
+        }
         let { move } = turn;
         if (isNaN(+move) || move < 0 || move > 8) {
           throw new Error('Invalid turn: move should be a number from 0 to 8');
@@ -45,5 +51,12 @@ export default class GameState {
             this.moves.push(move);
         }
         this.whoseTurn = this.players.find(player => player !== this.whoseTurn);
+        let win = winChecker.checkWin(this);
+        if (win) {
+            this.winner = this.whoseTurn;
+            this.whoseTurn = null;
+        } else {
+            this.whoseTurn = this.players.find(player => player !== this.whoseTurn);
+        }
     }
 }
