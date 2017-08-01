@@ -58,5 +58,9 @@ export default class GameState {
         } else {
             this.whoseTurn = this.players.find(player => player !== this.whoseTurn);
         }
+        if (!win && this.moves.length === 9) {
+            this.winner = null;
+            this.whoseTurn = null;
+        }
     }
 }

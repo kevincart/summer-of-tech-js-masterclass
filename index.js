@@ -5,8 +5,9 @@ import bodyParser from 'body-parser';
 let app = express();
 let gameState = new GameState();
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+  app.use(express.static('client'));
 });
+
 const server = app.listen(5000, () => {
     console.log(`Server is running on port ${server.address().port}!`);
 });
