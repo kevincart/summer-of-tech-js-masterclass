@@ -7,6 +7,14 @@ class JoinGame extends React.Component {
           symbol: ''
       };
   }
+  handleNameChange (e) {
+    this.setState({ name: e.target.value });
+  }
+
+  handleSymbolChange (e) {
+    this.setState({ symbol: e.target.value });
+  }
+  
   render () {
   return (
       <form onSubmit={e => this.joinGame(e)}>
